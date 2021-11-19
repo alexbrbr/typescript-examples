@@ -24,6 +24,14 @@
 // const test4 = isFunny && {};
 // const test5 = isFunny && [];
 
+// const isFunny = false;
+// const test = isFunny == "";
+// const test1 = isFunny == " ";
+// const test2 = isFunny == 0;
+// const test3 = isFunny == 1;
+// const test4 = isFunny == {};
+// const test5 = isFunny == [];
+
 // const test = isFunny || "";
 // const test1 = isFunny || " ";
 // const test2 = isFunny || 0;
@@ -45,6 +53,11 @@
 // console.log({ test4 });
 // console.log({ test5 });
 
+// console.log(undefined == null);
+// console.log(undefined === null);
+// console.log(undefined === undefined);
+// console.log(null === null);
+// console.log(NaN === NaN);
 // 2) les fonctions
 // -----------------------------------------------------
 
@@ -112,9 +125,10 @@
 // const singer3 = {
 //   name: "Elvis Presley",
 // };
+// singer3.name = "YOLO"; // l'objet est const mais pas ses propriétés :D
 
 // console.log(singer.firstname);
 
 // const singers = [singer, singer2, singer3];
 
-// console.log(singers.filter((singer) => singer.alive === false));
+// console.log(singers.filter((singer) => !singer.alive));

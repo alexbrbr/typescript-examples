@@ -12,7 +12,7 @@
 
 // const pi = 3.14;
 // let number: number;
-// number = 1
+// number = 1;
 // const multiple = number * 2;
 // const multipleLol = number * false;
 // const multipleLol2 = number * true;
@@ -27,6 +27,12 @@
 // const test3: boolean = isFunny && 1;
 // const test4: boolean = isFunny && {};
 // const test5: boolean = isFunny && [];
+// const test: boolean = isFunny === "";
+// const test1: boolean = isFunny === " ";
+// const test2: boolean = isFunny === 0;
+// const test3: boolean = isFunny === 1;
+// const test4: boolean = isFunny === {};
+// const test5: boolean = isFunny === [];
 
 // const test = isFunny && Boolean("");
 // const test1 = isFunny && Boolean(" ");
@@ -136,6 +142,8 @@
 // console.log(singer.firstname);
 // console.log(singer.name);
 
+// singer3.name = "yolo";
+
 // const singers = [singer, singer2, singer3];
 
 // console.log(singers.filter((singer) => singer.alive === false));
@@ -144,6 +152,7 @@
 
 // interface Singer {
 //   name: string;
+//   // readonly name: string; // ou bien as const
 //   alive: boolean;
 // }
 // const singers3: Singer[] = [singer, singer2, singer3];
@@ -154,52 +163,93 @@
 // };
 // const singers4: Singer[] = [singer, singer2, singer3];
 
-// https://github.com/typescript-cheatsheets/react
+// interface et type, quasiment la même chose mais avec des
+// https://github.com/typescript-cheatsheets/react#types-or-interfaces
 
 // 5) les unions types
 // -----------------------------------------------------
 
-type Player = {
-  position: string;
-  //   position: 'midfielder' | 'striker' | 'goalKeeper';
-  jerseyNumber?: number;
-  name: string;
-};
+// type Player = {
+//   jerseyNumber?: number;
+//   name: string;
+//   // readonly name: string;
+// };
 
-// const zizou: Player = {
+// type FootballPlayer =
+//   | Player & {
+//       // position: string;
+//       position: "midfielder" | "striker" | "goalKeeper";
+//     };
+// interface FootballPlayer extends Player {
+//   position: "midfielder" | "striker" | "goalKeeper";
+// }
+
+// const zizou: FootballPlayer = {
 //   position: "midfielder",
 //   jerseyNumber: 10,
 //   name: "Zinedine Zidane",
 // };
 
-// const kyky: Player = {
+// const kyky: FootballPlayer = {
 //   position: "striker",
 //   jerseyNumber: 7,
 //   name: "Kylian Mbappé",
 // };
 
-// const fabulousFab: Player = {
+// const fabulousFab: FootballPlayer = {
 //   position: "goalKeeper",
 //   jerseyNumber: 1,
 //   name: "Fabien Barthez",
 // };
 
-// const rotaldo: Player = {
+// const rotaldo: FootballPlayer = {
 //   position: "striker",
 //   name: "Rotaldo",
 // };
 
-// const players = [zizou, kyky, fabulousFab];
+// rotaldo.name = "yolo";
 
-// const getBiography = (player: Player): string => {
+// type RugbyPlayer =
+//   | Player & {
+//       position: "centre" | "flanker";
+//     };
+// interface RugbyPlayer extends Player {
+//   position: "centre" | "flanker";
+// }
+
+// const dan: RugbyPlayer = {
+//   position: "centre",
+//   name: "Dan Carter",
+// };
+
+// const titi: RugbyPlayer = {
+//   position: "flanker",
+//   name: "Thierry Dusautoir",
+// };
+
+// const players = [zizou, kyky, fabulousFab, dan, titi];
+
+// type SportPlayer = FootballPlayer | RugbyPlayer;
+
+// function isRugbyPlayer(player: SportPlayer): player is RugbyPlayer {
+//   const position = (player as RugbyPlayer).position;
+//   return position === "centre" || position === "flanker";
+// }
+
+// const getBiography = (player: SportPlayer): string => {
 //   let biography = "";
 
-//   biography = `Player ${player.name} plays at the position of ${player.position} with the jersey n° ${player.jersey}.`;
+//   biography = `Player ${player.name} plays at the position of ${player.position}`;
+//   biography = `${biography}${
+//     player.jerseyNumber ? ` with the jersey n° ${player.jerseyNumber}.` : "."
+//   }`;
 
-//   // TODO: add sentence based on player position
-//   //   switch(player.position) {
-//   //       case
-//   //   }
+//   if (isRugbyPlayer(player)) {
+//     biography = `${biography} \n${player.name} plays Rugby !  \n`;
+//   } else {
+//     biography = `${biography} \n${player.name} plays Football ! \n`;
+//   }
+
 //   return biography;
 // };
 
@@ -208,8 +258,8 @@ type Player = {
 // 6) les generics
 // -----------------------------------------------------
 
-const letters = ["a", "b", "c", "d"];
-const numbers = [1, 2, 3];
+// const letters: Array<string> = ["a", "b", "c", "d"];
+// const numbers: Array<number> = [1, 2, 3];
 
 // const first = (arr: any[]) => arr[0];
 
@@ -224,50 +274,80 @@ const numbers = [1, 2, 3];
 // const typedFirstNumber = genericFirst(numbers);
 // const typedFirstPlayer = genericFirst(players);
 
-function map<T>(array: Array<T>, mapper: (elem: T) => T): Array<T> {
-  let mappedArray = [];
-  for (const element in array) {
-    mappedArray.push(mapper(array[element]));
-  }
-  return mappedArray;
-}
+// function map<T>(array: Array<T>, mapper: (elem: T) => T): Array<T> {
+//   let mappedArray = [];
+//   for (const element in array) {
+//     mappedArray.push(mapper(array[element]));
+//   }
+//   return mappedArray;
+// }
 
-const double = (num: number) => num * 2;
-const toUpperCase = (str: string) => str.toUpperCase; //oops
-console.log(map(numbers, double));
+// const double = (num: number) => num * 2;
+// const toUpperCase = (str: string) => str.toUpperCase; //oops
+// console.log(map(numbers, double));
 // console.log(map(letters, double)); // nope
 // console.log(map(letters, toUpperCase));
 
 // 7) les utility types
 // -----------------------------------------------------
 
-const colors = {
-  shamrock: "#3DD598",
-  orange: "#FF974A",
-  navy: "#031D42",
-  white: "#FFFFFF",
-};
+// const colors = {
+//   shamrock: "#3DD598",
+//   orange: "#FF974A",
+//   navy: "#031D42",
+//   white: "#FFFFFF",
+// };
 
-type ColorsType = typeof colors;
-type ColorKeys = keyof ColorsType;
+// type ColorsType = typeof colors;
+// type ColorKeys = keyof ColorsType;
 
-const getHexadecimalCode = (colorName : ColorKeys): string {
-    const hexadecimalValue = colors[colorName];
-    return hexadecimalValue;
-}
+// const getHexadecimalCode = (colorName: ColorKeys): string => {
+//   const hexadecimalValue = colors[colorName];
+//   return hexadecimalValue;
+// };
 
-console.log(getHexadecimalCode('shamrock'))
+// console.log(getHexadecimalCode("shamrock"));
 
-// type playerJerseyInfo = Required<Pick<Player, 'jerseyNumber' | 'name'>>
-// type playerJerseyInfo = Omit<Player, 'position'>
-// type playerJerseyInfo = Required<Omit<Player, 'position'>>
+// type Player = {
+//   position: "midfielder" | "striker" | "goalKeeper";
+//   jerseyNumber?: number;
+//   name: string;
+// };
+// // type playerJerseyInfo = Required<Pick<Player, 'jerseyNumber' | 'name'>>
+// type playerJerseyInfo = Omit<Player, "position">;
+// // type playerJerseyInfo = Required<Omit<Player, 'position'>>
 
-interface Jersey extends playerJerseyInfo {
-    color: ColorKeys
-}
+// interface Jersey extends playerJerseyInfo {
+//   color: ColorKeys;
+// }
 
-const zizouJersey : Jersey = {
-    jerseyNumber: 10,
-    name: 'ZZ',
-    color: "white"
-}
+// const zizouJersey: Jersey = {
+//   jerseyNumber: 10,
+//   name: "ZZ",
+//   color: "white",
+// };
+
+// type teams = "Real Madrid" | "PSG" | "Celtic Glasgow" | "Netherlands";
+
+// type JerseyByTeam = {
+//   [key in teams]: ColorKeys;
+// };
+
+// Syntaxe plus simple avec Record (intéressant de voir l'utilisation des generics dans record)
+// type JerseyByTeam = Record<teams, ColorKeys>;
+
+// const jerseyColors: JerseyByTeam = {
+//   "Real Madrid": "white",
+//   PSG: "navy",
+//   "Celtic Glasgow": "shamrock",
+//   Netherlands: "orange",
+// };
+
+// Pas dans le scope de cette formation
+// -----------------------------------------------------
+
+// les enums, car on peut les remplacer par des unions dans 90% des cas : https://blog.bam.tech/developer-news/should-you-use-enums-or-union-types-in-typescript
+// les classes
+// l'utilisation de libs avec TS, https://github.com/DefinitelyTyped/DefinitelyTyped etc...
+// les namespaces (https://www.typescriptlang.org/docs/handbook/namespaces.html)
+// sans doute d'autres choses que j'ai du oublier
