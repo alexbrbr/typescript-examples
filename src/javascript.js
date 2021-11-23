@@ -24,7 +24,7 @@
 // const test4 = isFunny && {};
 // const test5 = isFunny && [];
 
-// const isFunny = false;
+// const isFunny = true;
 // const test = isFunny == "";
 // const test1 = isFunny == " ";
 // const test2 = isFunny == 0;
@@ -58,6 +58,7 @@
 // console.log(undefined === undefined);
 // console.log(null === null);
 // console.log(NaN === NaN);
+
 // 2) les fonctions
 // -----------------------------------------------------
 
@@ -91,7 +92,7 @@
 // const animalNames = ["mimi", "chewie", "boulie"];
 // animalNames.push(123);
 
-// // console.log(animalNames);
+// console.log(animalNames);
 // const wtf = [1, 2, "3", , [], null, undefined, true];
 // console.log("wtf", wtf);
 
@@ -124,6 +125,9 @@
 
 // const singer3 = {
 //   name: "Elvis Presley",
+// };
+// singer3 = {
+//   name: "test",
 // };
 // singer3.name = "YOLO"; // l'objet est const mais pas ses propriétés :D
 

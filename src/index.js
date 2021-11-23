@@ -1,6 +1,6 @@
 // 1) les types de base : string, number, boolean
 // -----------------------------------------------------
-// const text1 = "ceci est une chaine";
+// const text1: string = "ceci est une chaine";
 // let text2: string;
 // text2 = "en fait c'est quoi ça :)";
 // console.log(text2);
@@ -64,17 +64,24 @@
 //   console.log(Array(10).fill(separator).join(""));
 //   console.log(message);
 //   console.log(Array(10).fill(separator).join(""));
-//   return true;
 // };
 // type Formatter = (str: string) => string;
-// const lowercase: Formatter = (str) => str.toLowerCase();
+// // const toUpperCase: Formatter = (str) => str.toLowerCase();
 // const uppercase: Formatter = (str) => str.toUpperCase();
 // const trim: Formatter = (str) => str.trim();
 // const exclamation: Formatter = (str) => str + "!!!!";
 // const test = trim(uppercase(exclamation("  hehe  "))); // c'est tout inféré
 // console.log(test);
 // logger("yolo");
-// logger("yolo2", "@@@");
+// logger("yolo2", "@");
+// Exercice : écrire une fonction qui additionne deux nombre
+// const add = (num1: number, num2: number): number => {
+//   return num1 + num2;
+// };
+// add(1, 2);
+// function add(num1: number, num2: number): number {
+//   return num1 + num2;
+// }
 // 3) les tableaux
 // -----------------------------------------------------
 // const animalNames = ["mimi", "chewie", "boulie"];
@@ -82,22 +89,22 @@
 // console.log(animalNames);
 // const wtf = [1, 2, "3", , [], null, undefined, true];
 // console.log(wtf);
-// const typedWtf: (string | number | any[] | boolean)[] = [
-//   1,
-//   2,
-//   "3",
-//   ,
-//   [],
-//   null,
-//   undefined,
-//   true,
-// ];
+// type FFF = (string | number | any[] | boolean)[];
+// const typedWtf: FFF = [1, 2, "3", , [], null, undefined, true];
 // console.log(typedWtf);
-// const number: number[] = [1, 2, 3, 4];
+// const number = [1, 2, 3, 4];
 // console.log(number);
-// const double = (num: number) => num * 2;
+// const double = (num: number): number => num * 2;
 // console.log(number.map((n) => double(n)));
 // console.log(typedWtf.map((n) => double(n)));
+// Exercice: quelle serait la signature
+// pour une fonction qui recherche le plus
+// grand nombre dans un tableau ?
+// const max = (tab: number[]): number => {
+//   const tab2 = [...tab];
+//   const test = "abcde".split("");
+//   return Math.max(...tab);
+// };
 // 4) les objets
 // -----------------------------------------------------
 // const singer = {
@@ -109,22 +116,23 @@
 //   alive: true,
 // };
 // const singer3 = {
-//   name: "Elvis Presley",
+//   name: "Elvis Presley" as const,
+//   alive: false as const,
 // };
 // console.log(singer.firstname);
 // console.log(singer.name);
 // singer3.name = "yolo";
+// singer3.alive = true;
 // const singers = [singer, singer2, singer3];
 // console.log(singers.filter((singer) => singer.alive === false));
 // const singers2: { name: string; alive: boolean }[] = [singer, singer2, singer3];
 // interface Singer {
-//   name: string;
-//   // readonly name: string; // ou bien as const
+//   readonly name: string; // ou bien as const, mais uniquement sur des object literal
 //   alive: boolean;
 // }
 // const singers3: Singer[] = [singer, singer2, singer3];
 // type Singer = {
-//   name: string;
+//   readonly name: string;
 //   alive: boolean;
 // };
 // const singers4: Singer[] = [singer, singer2, singer3];
@@ -134,12 +142,10 @@
 // -----------------------------------------------------
 // type Player = {
 //   jerseyNumber?: number;
-//   name: string;
-//   // readonly name: string;
+//   readonly name: string;
 // };
 // type FootballPlayer =
 //   | Player & {
-//       // position: string;
 //       position: "midfielder" | "striker" | "goalKeeper";
 //     };
 // interface FootballPlayer extends Player {
@@ -180,7 +186,7 @@
 //   position: "flanker",
 //   name: "Thierry Dusautoir",
 // };
-// const players = [zizou, kyky, fabulousFab, dan, titi];
+// const players: SportPlayer[] = [zizou, kyky, fabulousFab, dan, titi];
 // type SportPlayer = FootballPlayer | RugbyPlayer;
 // function isRugbyPlayer(player: SportPlayer): player is RugbyPlayer {
 //   const position = (player as RugbyPlayer).position;
@@ -227,51 +233,34 @@
 // console.log(map(letters, toUpperCase));
 // 7) les utility types
 // -----------------------------------------------------
-// const colors = {
-//   shamrock: "#3DD598",
-//   orange: "#FF974A",
-//   navy: "#031D42",
-//   white: "#FFFFFF",
-// };
-// type ColorsType = typeof colors;
-// type ColorKeys = keyof ColorsType;
-// const getHexadecimalCode = (colorName: ColorKeys): string => {
-//   const hexadecimalValue = colors[colorName];
-//   return hexadecimalValue;
-// };
-// console.log(getHexadecimalCode("shamrock"));
-// type Player = {
-//   position: "midfielder" | "striker" | "goalKeeper";
-//   jerseyNumber?: number;
-//   name: string;
-// };
-// // type playerJerseyInfo = Required<Pick<Player, 'jerseyNumber' | 'name'>>
-// type playerJerseyInfo = Omit<Player, "position">;
-// // type playerJerseyInfo = Required<Omit<Player, 'position'>>
-// interface Jersey extends playerJerseyInfo {
-//   color: ColorKeys;
-// }
-// const zizouJersey: Jersey = {
-//   jerseyNumber: 10,
-//   name: "ZZ",
-//   color: "white",
-// };
-// type teams = "Real Madrid" | "PSG" | "Celtic Glasgow" | "Netherlands";
-// type JerseyByTeam = {
-//   [key in teams]: ColorKeys;
-// };
-// Syntaxe plus simple avec Record (intéressant de voir l'utilisation des generics dans record)
-// type JerseyByTeam = Record<teams, ColorKeys>;
-// const jerseyColors: JerseyByTeam = {
-//   "Real Madrid": "white",
-//   PSG: "navy",
-//   "Celtic Glasgow": "shamrock",
-//   Netherlands: "orange",
-// };
+var colors = {
+    shamrock: "#3DD598",
+    orange: "#FF974A",
+    navy: "#031D42",
+    white: "#FFFFFF"
+};
+var getHexadecimalCode = function (colorName) {
+    var hexadecimalValue = colors[colorName];
+    return hexadecimalValue;
+};
+console.log(getHexadecimalCode("orange"));
+var zizouJersey = {
+    jerseyNumber: 10,
+    name: "ZZ",
+    color: "white"
+};
+// Exercice : réfléchit à comment est fait le type Record
+var jerseyColors = {
+    PSG: "navy",
+    "Celtic Glasgow": "shamrock",
+    Netherlands: "orange",
+    "Real Madrid": "white"
+};
+// Exercice : rajouter une équipe aux joueurs de foot, et faire une fonction qui donne la couleur en hexadécimal du maillot d'un joueur donné
 // Pas dans le scope de cette formation
 // -----------------------------------------------------
 // les enums, car on peut les remplacer par des unions dans 90% des cas : https://blog.bam.tech/developer-news/should-you-use-enums-or-union-types-in-typescript
-// les classes
+// les classes, les décorateurs et les fonctionnalités orienté objet en général
 // l'utilisation de libs avec TS, https://github.com/DefinitelyTyped/DefinitelyTyped etc...
 // les namespaces (https://www.typescriptlang.org/docs/handbook/namespaces.html)
-// sans doute d'autres choses que j'ai du oublier
+// sans doute d'autres choses que j'ai du oublier / que  je ne connais pas encore
