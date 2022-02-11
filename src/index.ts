@@ -1,9 +1,9 @@
 // 1) les types de base : string, number, boolean
 // -----------------------------------------------------
 
-// const text1: string = "ceci est une chaine";
+// const text1 = "ceci est une chaine";
 
-// let text2: string;
+// let text2;
 // text2 = "en fait c'est quoi ça :)";
 // console.log(text2);
 
@@ -52,6 +52,10 @@
 // 2) les fonctions
 
 // const isEven = (num: number): boolean => num % 2 === 0;
+
+// function isEven (num: number) : boolean {
+//     return
+// }
 // console.log("isEven(1): ", isEven(1));
 // console.log("isEven(2): ", isEven(2));
 // console.log('isEven("2"): ', isEven("2"));
@@ -69,10 +73,7 @@
 //   hasFileExtension("file.csv", "txt")
 // );
 
-// console.log(
-//   'hasFileExtension("file0.csv", 0)',
-//   hasFileExtension("file0.csv", 0)
-// );
+// console.log('hasFileExtension("file0.csv", 0)', hasFileExtension("file0.csv"));
 
 // const logger = (message: string, separator = "-"): void => {
 //   console.log(Array(10).fill(separator).join(""));
@@ -82,7 +83,6 @@
 
 // type Formatter = (str: string) => string;
 
-// // const toUpperCase: Formatter = (str) => str.toLowerCase();
 // const uppercase: Formatter = (str) => str.toUpperCase();
 // const trim: Formatter = (str) => str.trim();
 // const exclamation: Formatter = (str) => str + "!!!!";
@@ -94,10 +94,12 @@
 
 // Exercice : écrire une fonction qui additionne deux nombre
 
-// const add = (num1: number, num2: number): number => {
-//   return num1 + num2;
+// const addition = (num: number, num2: number): number => {
+//   return num + num2;
 // };
-// add(1, 2);
+
+// const add = (num1: number, num2: number): number => num1 + num2;
+// console.log(add(1, 2));
 // function add(num1: number, num2: number): number {
 //   return num1 + num2;
 // }
@@ -130,8 +132,6 @@
 // grand nombre dans un tableau ?
 
 // const max = (tab: number[]): number => {
-//   const tab2 = [...tab];
-//   const test = "abcde".split("");
 //   return Math.max(...tab);
 // };
 
@@ -149,11 +149,10 @@
 // };
 
 // const singer3 = {
-//   name: "Elvis Presley" as const,
-//   alive: false as const,
-// };
+//   name: "Elvis Presley",
+//   alive: false,
+// } as const;
 
-// console.log(singer.firstname);
 // console.log(singer.name);
 
 // singer3.name = "yolo";
@@ -193,6 +192,7 @@
 //   | Player & {
 //       position: "midfielder" | "striker" | "goalKeeper";
 //     };
+
 // interface FootballPlayer extends Player {
 //   position: "midfielder" | "striker" | "goalKeeper";
 // }
@@ -285,9 +285,9 @@
 
 // const typedFirstLetter = genericFirst(letters);
 // const typedFirstNumber = genericFirst(numbers);
-// const typedFirstPlayer = genericFirst(players);
+// // const typedFirstPlayer = genericFirst(players);
 
-// function map<T>(array: Array<T>, mapper: (elem: T) => T): Array<T> {
+// function map<T>(array: Array<T>, mapper: (elem: T) => T): Array<unknown> {
 //   let mappedArray = [];
 //   for (const element in array) {
 //     mappedArray.push(mapper(array[element]));
@@ -296,7 +296,7 @@
 // }
 
 // const double = (num: number) => num * 2;
-// const toUpperCase = (str: string) => str.toUpperCase; //oops
+// const toUpperCase = (str: string) => str.toUpperCase(); //oops
 // console.log(map(numbers, double));
 // console.log(map(letters, double)); // nope
 // console.log(map(letters, toUpperCase));
@@ -326,13 +326,15 @@
 //   return hexadecimalValue;
 // };
 
-// console.log(getHexadecimalCode("orange"));
+// console.log(getHexadecimalCode("shamrock"));
 
 // type Player = {
 //   position: "midfielder" | "striker" | "goalKeeper";
 //   jerseyNumber?: number;
 //   name: string;
+//   team: teams;
 // };
+
 // type playerJerseyInfo = Required<Pick<Player, "jerseyNumber" | "name">>;
 // type playerJerseyInfo = Omit<Player, "position">;
 // type playerJerseyInfo = Required<Omit<Player, "position">>;
@@ -347,7 +349,7 @@
 //   color: "white",
 // };
 
-// type teams = "Real Madrid" | "PSG" | "Celtic Glasgow" | "Netherlands";
+// type teams = "Real_Madrid" | "PSG" | "Celtic_Glasgow" | "Netherlands";
 
 // type JerseyByTeam = {
 //   [key in teams]: ColorKeys;
@@ -359,12 +361,25 @@
 
 // const jerseyColors: JerseyByTeam = {
 //   PSG: "navy",
-//   "Celtic Glasgow": "shamrock",
+//   Celtic_Glasgow: "shamrock",
 //   Netherlands: "orange",
-//   "Real Madrid": "white",
+//   Real_Madrid: "white",
+// };
+
+// const player: Player = {
+//   //   jerseyNumber: 10,
+//   name: "ZZ",
+//   position: "midfielder",
+//   team: "Real_Madrid",
 // };
 
 // Exercice : rajouter une équipe aux joueurs de foot, et faire une fonction qui donne la couleur en hexadécimal du maillot d'un joueur donné
+// function getHexaColor(player: Player): string {
+//   const color = jerseyColors[player.team];
+//   return getHexadecimalCode(color);
+// }
+
+// console.log(getHexaColor(player));
 
 // Pas dans le scope de cette formation
 // -----------------------------------------------------

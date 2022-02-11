@@ -24,7 +24,7 @@
 // const test4 = isFunny && {};
 // const test5 = isFunny && [];
 
-// const isFunny = true;
+const isFunny = true;
 // const test = isFunny == "";
 // const test1 = isFunny == " ";
 // const test2 = isFunny == 0;
@@ -54,7 +54,7 @@
 // console.log({ test5 });
 
 // console.log(undefined == null);
-// console.log(undefined === null);
+// console.log(undefined === null); 
 // console.log(undefined === undefined);
 // console.log(null === null);
 // console.log(NaN === NaN);
@@ -126,6 +126,7 @@
 // const singer3 = {
 //   name: "Elvis Presley",
 // };
+
 // singer3 = {
 //   name: "test",
 // };
